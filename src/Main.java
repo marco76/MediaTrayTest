@@ -74,16 +74,21 @@ public class Main {
         String printPage = console.readLine();
         if (printPage.equalsIgnoreCase("Y")) {
 
+            // we have to add the MediaTray selected as attribute
             PrintRequestAttributeSet attributes = new HashPrintRequestAttributeSet();
             attributes.add(selectedTray);
 
+            // we create the printer job, it print a specified document with a set of job attributes
             DocPrintJob job = services[0].createPrintJob();
+
             try {
                 System.out.println("Trying to print an empty page on : " + selectedTray.toString());
-
+                // we create a document that implements the printable interface
                 Doc doc = new SimpleDoc(new PrintableDemo(), DocFlavor.SERVICE_FORMATTED.PRINTABLE, null);
-                // print
+
+                // we print using the selected attributes (paper tray)
                 job.print(doc, attributes);
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
